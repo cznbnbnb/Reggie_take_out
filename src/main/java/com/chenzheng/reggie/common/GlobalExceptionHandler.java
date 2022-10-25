@@ -1,6 +1,7 @@
 package com.chenzheng.reggie.common;
 
 
+import com.chenzheng.reggie.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,5 +23,12 @@ public class GlobalExceptionHandler {
         }
         return R.error("未知错误，创建失败");
     }
+
+    @ExceptionHandler(CustomException.class)
+    public R<String> exceptionHandler(CustomException ex){
+        log.info(ex.getMessage());
+        return R.error(ex.getMessage());
+    }
+
 
 }
