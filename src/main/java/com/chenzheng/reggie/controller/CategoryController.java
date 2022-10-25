@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -48,9 +49,24 @@ public class CategoryController {
     @DeleteMapping
     public R<String> delete(Long ids){
         log.info("删除分类，id为：{}",ids);
-        categoryService.removeById(ids);
-        return R.success("新建分类成功");
+        categoryService.remove(ids);
+        return R.success("分类信息删除成功");
     }
+
+    @PutMapping
+    public R<String> update(@RequestBody Category category){
+        log.info("修改分类信息：{}",category);
+        categoryService.updateById(category);
+        return R.success("修改分类信息成功");
+    }
+
+    @GetMapping("/list")
+    public R<List<Category>> list(Category category){
+        log.info("list category:{}",category.toString());
+        return categoryService.list(category);
+    }
+
+
 
 
 
